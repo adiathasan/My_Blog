@@ -20,6 +20,7 @@
     ================================================== -->
     <script src="{% static 'js/modernizr.js' %}"></script>
     <script src="{% static 'js/pace.min.js' %}"></script>
+    <script src="https://kit.fontawesome.com/1e7ad8b69d.js" crossorigin="anonymous"></script>
 
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="{% static 'image/x-icon' %}">
     <link rel="icon" href="{% static 'favicon.ico' %}" type="{% static 'image/x-icon' %}">
@@ -40,16 +41,7 @@
 
                 <ul class="header__social">
                     <li>
-                        <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                        <p>Hey {{ request.user }}</p>
                     </li>
                 </ul> <!-- end header__social -->
 
@@ -100,6 +92,7 @@
                         <li><a href="" title="">Styles</a></li>
                         <li><a href="{% url 'about' %}" title="">About</a></li>
                         <li><a href="{% url 'contact' %}" title="">Contact</a></li>
+                        <li><a href="{% url 'edit' %}" title="">Create Blog!</a></li>
                     </ul> <!-- end header__nav -->
 
                     <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>

@@ -6,7 +6,8 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     path('blog/<int:pk>/', views.perticular_blog, name='blog'),
-    path('edit_page/', views.edit_post, name='edit'),
+    path('create_page/', views.create_post, name='edit'),
+    path('update_page/<int:pk>/', views.update_post, name='update'),
 ]
 
 

@@ -25,7 +25,7 @@ def perticular_blog(request, pk):
     context = {'blog': blog}
     return render(request, 'blog/single-standard.html', context)
 
-def edit_post(request):
+def create_post(request):
     if request.method == 'POST':
         form = EditPost(request.POST)
         if form.is_valid():
@@ -36,5 +36,20 @@ def edit_post(request):
             return redirect('blog', pk=post.pk)
     else:
         form = EditPost()
+        context = {'form': form}
+    return render(request, 'blog/edit_post.html', context)
+
+def update_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        form = EditPost(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.last_edited = timezone.now()
+            post.save()
+            return redirect('blog', pk=post.pk)
+    else:
+        form = EditPost(instance=post)
         context = {'form': form}
     return render(request, 'blog/edit_post.html', context)
