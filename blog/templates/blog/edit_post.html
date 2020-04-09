@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+<section class="s-content s-content--narrow s-content--no-padding-bottom">
+    <article class="row format-standard">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </article>
+</section>
+
+{% endblock %}
