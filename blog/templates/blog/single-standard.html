@@ -9,13 +9,15 @@
                 <h1 class="s-content__header-title">
                     {{blog.title}}
                 </h1>
+                {% if user.is_authenticated %}
                 <div class="row bottom tags-wrap">
                     <div class="col-full tags">
                         <div class="tagcloud">
-                            <a href="{% url 'update' pk=blog.pk %}">Edit <i class="fas fa-space-shuttle fa-spin"></i></a>
+                            <a href="{% url 'update' pk=blog.pk %}"><i class="fas fa-pen fa-3x"></i></a>
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 <ul class="s-content__header-meta">
                     <li class="date">{{blog.pub_date}}</li>
                     <li class="cat">

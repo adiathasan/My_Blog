@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8">
-    <title>Philosophy</title>
+    <title>ADIAT || RATUL</i></title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -34,14 +34,17 @@
             <div class="header__content row">
 
                 <div class="header__logo">
-                    <a class="logo" href="index.html">
-                        <img src="{% static 'images/logo.svg' %}" alt="Homepage">
+                    <a class="logo" href="{% url 'home' %}">
+                        <i class="fab fa-linux fa-6x"></i>
                     </a>
                 </div> <!-- end header__logo -->
 
                 <ul class="header__social">
-                    <li>
-                        <p>Hey {{ request.user }}</p>
+                    <li>{% if user.is_authenticated %}
+                        <p>Hey {{ request.user }}
+                          <i class="fas fa-user-astronaut fa-lg " style="color: #ff922b;"></i>
+                        </p>
+                        {% endif %}
                     </li>
                 </ul> <!-- end header__social -->
 
@@ -92,7 +95,9 @@
                         <li><a href="" title="">Styles</a></li>
                         <li><a href="{% url 'about' %}" title="">About</a></li>
                         <li><a href="{% url 'contact' %}" title="">Contact</a></li>
+                        {% if user.is_authenticated %}
                         <li><a href="{% url 'edit' %}" title="">Create Blog!</a></li>
+                        {% endif %}
                     </ul> <!-- end header__nav -->
 
                     <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
