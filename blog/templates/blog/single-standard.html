@@ -19,7 +19,12 @@
                 </div>
                 {% endif %}
                 <ul class="s-content__header-meta">
-                    <li class="date">{{blog.pub_date}}</li>
+                    {% if blog.pub_date %}
+                    <li class="date">Published on: {{blog.pub_date}}</li>
+                    {% else %}
+                    <li class="date">created on: {{blog.created_date}}</li>
+                    <li><a href="{% url 'draft' %}">Want to publish?</a></li>
+                    {% endif %}
                     <li class="cat">
                         In
                         <a href="#0">Lifestyle</a>

@@ -5,7 +5,7 @@ from .forms import EditPost
 # Create your views here.
 
 def Home_blog(request):
-    posts = Post.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
+    posts = Post.objects.all().order_by('-pub_date')
     post1 = Post.objects.all()[0]
     context = {"posts": posts, 'post1': post1}
     return render(request, 'blog/index.html', context)
@@ -31,9 +31,9 @@ def create_post(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.pub_date = timezone.now()
+            post.created_date = timezone.now()
             post.save()
-            return redirect('blog', pk=post.pk)
+            return redirect('draft')
     else:
         form = EditPost()
         context = {'form': form}
@@ -53,3 +53,11 @@ def update_post(request, pk):
         form = EditPost(instance=post)
         context = {'form': form}
     return render(request, 'blog/edit_post.html', context)
+def draft_post(request):
+    posts = Post.objects.filter(pub_date__isnull=True).order_by('-pub_date')
+    context = {'posts': posts}
+    return render(request, 'blog/draft.html', context)
+def post_blog(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.publish()
+    return redirect('blog', pk=pk)

@@ -101,6 +101,7 @@
 
                 <div class="grid-sizer"></div>
                 {% for post in posts %}
+                {% if post.pub_date %}
                 <article class="masonry__brick entry format-standard" data-aos="fade-up">
                         
                     <div class="entry__thumb">
@@ -136,6 +137,7 @@
                     </div>
     
                 </article> <!-- end article -->
+                {% endif %}
                 {% endfor %}
 
 

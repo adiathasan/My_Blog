@@ -8,6 +8,8 @@ urlpatterns = [
     path('blog/<int:pk>/', views.perticular_blog, name='blog'),
     path('create_page/', views.create_post, name='edit'),
     path('update_page/<int:pk>/', views.update_post, name='update'),
+    path('draft_page/', views.draft_post, name='draft'),
+    path('post/<int:pk>/', views.post_blog, name='post'),
 ]
 
 
