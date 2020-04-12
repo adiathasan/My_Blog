@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from django.utils import timezone
-from .forms import EditPost, CreateUserForm
+from .forms import EditPost, CreateUserForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as dj_login, logout, authenticate
 from django.contrib.auth.admin import User
 from django.contrib import messages
+
+
 # Create your views here.
 
 def Home_blog(request):
@@ -14,22 +16,27 @@ def Home_blog(request):
     context = {"posts": posts, 'post1': post1}
     return render(request, 'blog/index.html', context)
 
+
 def category(request):
     context = {}
     return render(request, 'blog/category.html', context)
 
+
 def about(request):
     return render(request, 'blog/about.html')
+
 
 def contact(request):
     contact = 'contact'
     dic = {'contact': contact}
     return render(request, 'blog/contact.html', dic)
 
-def perticular_blog(request, pk):
+
+def particular_blog(request, pk):
     blog = get_object_or_404(Post, pk=pk)
     context = {'blog': blog}
     return render(request, 'blog/single-standard.html', context)
+
 
 def create_post(request):
     if request.method == 'POST':
@@ -44,6 +51,7 @@ def create_post(request):
         form = EditPost()
         context = {'form': form}
     return render(request, 'blog/edit_post.html', context)
+
 
 @login_required(login_url='login')
 def update_post(request, pk):
@@ -61,17 +69,20 @@ def update_post(request, pk):
         context = {'form': form}
     return render(request, 'blog/edit_post.html', context)
 
+
 @login_required(login_url='login')
 def draft_post(request):
     posts = Post.objects.filter(pub_date__isnull=True).order_by('-pub_date')
     context = {'posts': posts}
     return render(request, 'blog/draft.html', context)
 
+
 @login_required(login_url='login')
 def post_blog(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish()
     return redirect('blog', pk=pk)
+
 
 def register(request):
     if request.user.is_authenticated:
@@ -111,3 +122,18 @@ def logoutpage(request):
     logout(request)
     return redirect('home')
 
+@login_required(login_url='login')
+def comment_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.post = post
+            comment.created_date = timezone.now()
+            comment.save()
+            return redirect('blog', pk=post.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'blog/comments.html', {'form': form})
