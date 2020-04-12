@@ -137,3 +137,11 @@ def comment_post(request, pk):
     else:
         form = CommentForm()
     return render(request, 'blog/comments.html', {'form': form})
+
+
+@login_required(login_url='login')
+def remove_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.delete()
+    return redirect('blog', pk=comment.post.pk)
+

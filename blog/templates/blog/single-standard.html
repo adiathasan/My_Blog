@@ -77,12 +77,14 @@
 
             <div id="comments" class="row">
                 <div class="col-full">
-                    {% if total_comment != 0 %}
-                    <h3 class="h2">{{ total_comment }} comments </h3>
-                    {% else %}
-                    <h3>No comments Yet</h3>
-                    {% endif %}<!-- commentlist -->
+                    <div class="respond">
+
+                        <h3 class="h2"><a href="{% url 'comment' pk=blog.pk %}">Add Comment</a></h3>
+
+                    </div>
+                    <!-- commentlist -->
                     {% for comment in blog.comments.all %}
+
                     <ol class="commentlist">
 
                         <li class="depth-1 comment">
@@ -98,13 +100,17 @@
 
                                     <div class="comment__meta">
                                         <time class="comment__time">{{ comment.created_date }}</time>
-                                        <a class="reply" href="#0">Reply</a>
+                                        <a class="reply" href="{% url 'remove' pk=comment.pk %}">remove</a>
                                     </div>
                                 </div>
 
                                 <div class="comment__text">
                                 <p>{{ comment.comment }}</p>
                             </div>
+                            {% empty %}
+                                <div class="comment__info">
+                                    <cite>No comments yet</cite>
+                                </div>
 
                         </li> <!-- end comment level 1 -->
                     </ol> <!-- end commentlist -->
@@ -112,11 +118,7 @@
                     {% endfor %}
                     <!-- respond
                     ================================================== -->
-                    <div class="respond">
-
-                        <h3 class="h2"><a href="{% url 'comment' pk=blog.pk %}">Add Comment</a></h3>
-
-                    </div> <!-- end respond -->
+<!-- end respond -->
 
                 </div> <!-- end col-full -->
 
