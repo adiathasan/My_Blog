@@ -29,8 +29,7 @@
                     <li><a href="{% url 'draft' %}">Want to publish?</a></li>
                     {% endif %}
                     <li class="cat">
-                        In
-                        <a href="#0">{{blog.categoryq}}</a>
+                        <a href="#0">{{blog.category}}</a>
                     </li>
                 </ul>
             </div> <!-- end s-content__header -->
@@ -84,9 +83,9 @@
                         {% else %}
                         <p>{{blog.comments.count}} comments</p>
                         {% endif %}
-
+                        {% if user.is_authenticated %}
                         <h3 class="h2"><a href="{% url 'comment' pk=blog.pk %}">Add Comment</a></h3>
-
+                        {% endif %}
                     </div>
                     <!-- commentlist -->
                     {% for comment in blog.comments.all %}
@@ -103,11 +102,12 @@
 
                                 <div class="comment__info">
                                     <cite>{{ comment.author }}</cite>
-
+                                    {% if user.is_authenticated %}
                                     <div class="comment__meta">
                                         <time class="comment__time">{{ comment.created_date }}</time>
                                         <a class="reply" href="{% url 'remove' pk=comment.pk %}">remove</a>
                                     </div>
+                                    {% endif %}
                                 </div>
 
                                 <div class="comment__text">
