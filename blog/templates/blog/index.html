@@ -139,7 +139,11 @@ Adiat's Blog
                             </span>
                         </div>
                     </div>
-    
+                    {% if post.comments.count <= 1 %}
+                        <p>{{post.comments.count}} comment</p>
+                    {% else %}
+                        <p>{{post.comments.count}} comments</p>
+                    {% endif %}
                 </article> <!-- end article -->
                 {% endif %}
                 {% endfor %}

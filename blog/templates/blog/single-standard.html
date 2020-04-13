@@ -79,6 +79,12 @@
                 <div class="col-full">
                     <div class="respond">
 
+                        {% if blog.comments.count <= 1 %}
+                        <p>{{blog.comments.count}} comment</p>
+                        {% else %}
+                        <p>{{blog.comments.count}} comments</p>
+                        {% endif %}
+
                         <h3 class="h2"><a href="{% url 'comment' pk=blog.pk %}">Add Comment</a></h3>
 
                     </div>
@@ -107,21 +113,10 @@
                                 <div class="comment__text">
                                 <p>{{ comment.comment }}</p>
                             </div>
-                            {% empty %}
-                                <div class="comment__info">
-                                    <cite>No comments yet</cite>
-                                </div>
-
                         </li> <!-- end comment level 1 -->
                     </ol> <!-- end commentlist -->
-
                     {% endfor %}
-                    <!-- respond
-                    ================================================== -->
-<!-- end respond -->
-
                 </div> <!-- end col-full -->
-
             </div> <!-- end row comments -->
         </div> <!-- end comments-wrap -->
 
