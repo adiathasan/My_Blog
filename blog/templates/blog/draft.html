@@ -14,8 +14,13 @@ DRAFTS
 
                     <div class="entry__thumb">
                         <a href="{% url 'blog' pk=post.pk %}" class="entry__thumb-link">
+<<<<<<< HEAD
                             <img src="{{post.image.url}}"
                                     srcset="{{post.image.url}} 1x, {{post.image.url}} 2x" alt="">
+=======
+                            <img src="{% static 'images/thumbs/masonry/lamp-400.jpg' %}"
+                                    srcset="{% static 'images/thumbs/masonry/lamp-400.jpg' %} 1x, {% static 'images/thumbs/masonry/lamp-800.jpg' %} 2x" alt="">
+>>>>>>> 949189bd0530dc0648a564d6ca4994ba2bbe18ec
                         </a>
                     </div>
 

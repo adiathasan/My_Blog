@@ -4,7 +4,11 @@
 <head>
 
     <meta charset="utf-8">
+<<<<<<< HEAD
     <title>{% block title %} {% endblock %}</title>
+=======
+    <title>{% block title %} {% endblock %}</i></title>
+>>>>>>> 949189bd0530dc0648a564d6ca4994ba2bbe18ec
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -74,7 +78,31 @@
                     <h2 class="header__nav-heading h6">Site Navigation</h2>
 
                     <ul class="header__nav">
+<<<<<<< HEAD
                         <li class="current"><a href="{% url 'home' %}" title="">Blogs</a></li>
+=======
+                        <li class="current"><a href="{% url 'home' %}" title="">Home</a></li>
+                        <li class="has-children">
+                            <a href="#0" title="">Categories</a>
+                            <ul class="sub-menu">
+                            <li><a href="{% url 'category' %}">Lifestyle</a></li>
+                            <li><a href="{% url 'category' %}">Health</a></li>
+                            <li><a href="{% url 'category' %}">Family</a></li>
+                            <li><a href="{% url 'category' %}">Management</a></li>
+                            <li><a href="{% url 'category' %}">Travel</a></li>
+                            <li><a href="{% url 'category' %}">Work</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#0" title="">Blog</a>
+                            <ul class="sub-menu">
+                            <li><a href="">Video Post</a></li>
+                            <li><a href="">Audio Post</a></li>
+                            <li><a href="">Gallery Post</a></li>
+                            <li><a href="">Standard Post</a></li>
+                            </ul>
+                        </li>
+>>>>>>> 949189bd0530dc0648a564d6ca4994ba2bbe18ec
                         <li><a href="{% url 'about' %}" title="">About</a></li>
                         <li><a href="{% url 'contact' %}" title="">Contact</a></li>
                         {% if user.is_authenticated %}

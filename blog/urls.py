@@ -15,8 +15,12 @@ urlpatterns = [
     path('logout/', views.logoutpage, name='logout'),
     path('register/', views.register, name='register'),
     path('comment/<int:pk>/', views.comment_post, name='comment'),
+<<<<<<< HEAD
     path('comment/<int:pk>/remove/', views.remove_comment, name='remove'),
     path('delete/<int:pk>/', views.delete_post, name='delete'),
+=======
+    path('comment/<int:pk>/remove/', views.remove_comment, name='remove')
+>>>>>>> 949189bd0530dc0648a564d6ca4994ba2bbe18ec
 
 ]
 
