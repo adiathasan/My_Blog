@@ -1,12 +1,14 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 {% block title %}
-Edit
+comment
 {% endblock %}
+
 {% block content %}
+
 <section class="s-content s-content--narrow s-content--no-padding-bottom">
     <article class="row format-standard">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post">
             {% csrf_token %}
             {{ form }}
             <button type="submit">Submit</button>

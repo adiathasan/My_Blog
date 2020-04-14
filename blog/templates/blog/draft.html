@@ -1,0 +1,54 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}
+DRAFTS
+{% endblock %}
+{% block content %}
+    <section class="s-content">
+
+        <div class="row masonry-wrap">
+            <div class="masonry">
+                <div class="grid-sizer"></div>
+                {% for post in posts %}
+                <article class="masonry__brick entry format-standard" data-aos="fade-up">
+
+                    <div class="entry__thumb">
+                        <a href="{% url 'blog' pk=post.pk %}" class="entry__thumb-link">
+                            <img src="{{post.image.url}}"
+                                    srcset="{{post.image.url}} 1x, {{post.image.url}} 2x" alt="">
+                        </a>
+                    </div>
+
+                    <div class="entry__text">
+                        <div class="entry__header">
+
+                            <div class="entry__date">
+                                <a href="#">Created on: {{post.created_date}}</a>
+                            </div>
+                            <h1 class="entry__title"><a href="{% url 'blog' pk=post.pk %}">{{ post.title }}</a></h1>
+
+                        </div>
+                        <div class="entry__excerpt">
+                            <p>
+                              {{post.text}}
+                            </p>
+                        </div>
+                        <div class="entry__meta">
+                            <span class="entry__meta-links">
+                                    <a href="{% url 'post' pk=post.pk %}">Publish</a>
+                                {% if post.last_edited %}
+                                <p>Last Updated: {{ post.last_edited }}</p>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                </article> <!-- end article -->
+                {% endfor %}
+            </div>
+        </div>
+
+    </section>
+
+
+{% endblock %}
