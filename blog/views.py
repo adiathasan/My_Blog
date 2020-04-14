@@ -17,10 +17,7 @@ def Home_blog(request):
     context = {"posts": posts, 'post1': post1}
     return render(request, 'blog/index.html', context)
 
-@login_required(login_url='login')
-def category(request):
-    context = {}
-    return render(request, 'blog/category.html', context)
+
 
 
 def about(request):
@@ -151,4 +148,3 @@ def remove_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
     return redirect('blog', pk=comment.post.pk)
-
