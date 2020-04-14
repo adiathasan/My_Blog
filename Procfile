@@ -1,0 +1,1 @@
+web: gunicorn profit.wsgi --log-file -
