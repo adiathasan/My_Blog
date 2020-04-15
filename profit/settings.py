@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'h^)!==r)segu@#84nv-m!^i$ygps_pfntfijfdjj)!5(yxhjo#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['adiats-bloging-app.herokuapp.com', '127.0.0.1']
 
