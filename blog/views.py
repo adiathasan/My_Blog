@@ -18,13 +18,11 @@ def Home_blog(request):
     return render(request, 'blog/index.html', context)
 
 
-<<<<<<< HEAD
 
-=======
 def category(request):
     context = {}
     return render(request, 'blog/category.html', context)
->>>>>>> 949189bd0530dc0648a564d6ca4994ba2bbe18ec
+
 
 
 def about(request):
@@ -35,26 +33,17 @@ def contact(request):
     contact = 'contact'
     dic = {'contact': contact}
     return render(request, 'blog/contact.html', dic)
-<<<<<<< HEAD
 
-
-=======
-
-
->>>>>>> 949189bd0530dc0648a564d6ca4994ba2bbe18ec
 def particular_blog(request, pk):
     blog = get_object_or_404(Post, pk=pk)
     context = {'blog': blog}
     return render(request, 'blog/single-standard.html', context)
 
-<<<<<<< HEAD
-@login_required(login_url='login')
-=======
 
->>>>>>> 949189bd0530dc0648a564d6ca4994ba2bbe18ec
+@login_required(login_url='login')
 def create_post(request):
     if request.method == 'POST':
-        form = EditPost(request.POST, request.FILES)
+        form = EditPost(request.POST, request.FILES or None)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -70,8 +59,9 @@ def create_post(request):
 @login_required(login_url='login')
 def update_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    print(request.__dict__)
     if request.method == 'POST':
-        form = EditPost(request.POST, request.FILES, instance=post)
+        form = EditPost(request.POST, request.FILES or None, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -90,15 +80,13 @@ def draft_post(request):
     context = {'posts': posts}
     return render(request, 'blog/draft.html', context)
 
-<<<<<<< HEAD
+
 @login_required(login_url='login')
 def delete_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('/', pk=post.pk)
 
-=======
->>>>>>> 949189bd0530dc0648a564d6ca4994ba2bbe18ec
 
 @login_required(login_url='login')
 def post_blog(request, pk):
@@ -115,9 +103,11 @@ def register(request):
         if request.method == 'POST':
             form = CreateUserForm(request.POST)
             if form.is_valid():
-                form.save()
-                user = form.cleaned_data.get('username')
-                messages.success(request, f'successfully created user {user}')
+                user = form.save(commit=False)
+                user.author = request.user
+                user.save()
+                user_name = form.cleaned_data.get('username')
+                messages.success(request, f'successfully created user {user_name}')
                 return redirect('login')
 
         dic = {'form': form}
@@ -166,9 +156,6 @@ def comment_post(request, pk):
 def remove_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
-<<<<<<< HEAD
-    return redirect('blog', pk=comment.post.pk)
-=======
     return redirect('blog', pk=comment.post.pk)
 
->>>>>>> 949189bd0530dc0648a564d6ca4994ba2bbe18ec
+

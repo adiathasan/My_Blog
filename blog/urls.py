@@ -15,13 +15,23 @@ urlpatterns = [
     path('logout/', views.logoutpage, name='logout'),
     path('register/', views.register, name='register'),
     path('comment/<int:pk>/', views.comment_post, name='comment'),
-<<<<<<< HEAD
     path('comment/<int:pk>/remove/', views.remove_comment, name='remove'),
     path('delete/<int:pk>/', views.delete_post, name='delete'),
-=======
-    path('comment/<int:pk>/remove/', views.remove_comment, name='remove')
->>>>>>> 949189bd0530dc0648a564d6ca4994ba2bbe18ec
+    path('comment/<int:pk>/remove/', views.remove_comment, name='remove'),
+
+    path('reset_password/',
+         auth_views.PasswordResetView.as_view(template_name='blog/reset_password.html'),
+         name='reset_password'),
+
+    path('reset_password_sent/',
+         auth_views.PasswordResetDoneView.as_view(template_name='blog/email_message.html'),
+         name='password_reset_done'),
+
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='blog/new_password.html'),
+         name='password_reset_confirm'),
+
+    path('reset_password_complete/',
+         auth_views.PasswordResetCompleteView.as_view(template_name='blog/messege_sent.html'),
+         name='password_reset_complete'),
 
 ]
-
-

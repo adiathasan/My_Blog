@@ -10,20 +10,22 @@ DRAFTS
             <div class="masonry">
                 <div class="grid-sizer"></div>
                 {% for post in posts %}
+                {% if user.is_authenticated and request.user == post.author or user.is_superuser %}
                 <article class="masonry__brick entry format-standard" data-aos="fade-up">
-
+                    {% if post.image %}
                     <div class="entry__thumb">
                         <a href="{% url 'blog' pk=post.pk %}" class="entry__thumb-link">
-<<<<<<< HEAD
                             <img src="{{post.image.url}}"
-                                    srcset="{{post.image.url}} 1x, {{post.image.url}} 2x" alt="">
-=======
-                            <img src="{% static 'images/thumbs/masonry/lamp-400.jpg' %}"
-                                    srcset="{% static 'images/thumbs/masonry/lamp-400.jpg' %} 1x, {% static 'images/thumbs/masonry/lamp-800.jpg' %} 2x" alt="">
->>>>>>> 949189bd0530dc0648a564d6ca4994ba2bbe18ec
-                        </a>
+                                    srcset="{{post.image.url}} 1x, {{post.image.url}} 2x" alt=""></a>
+                    </div>
+                    {% else %}
+                    <div class="entry__thumb">
+                        <a href="{% url 'blog' pk=post.pk %}" class="entry__thumb-link">
+                            <img src="{% static 'images/no_img.png' %}"
+                                    srcset="{% static 'images/no_img.png' %} 1x, {% static 'images/no_img.png' %} 2x" alt=""></a>
                     </div>
 
+                    {% endif %}
                     <div class="entry__text">
                         <div class="entry__header">
 
@@ -40,15 +42,20 @@ DRAFTS
                         </div>
                         <div class="entry__meta">
                             <span class="entry__meta-links">
+
                                     <a href="{% url 'post' pk=post.pk %}">Publish</a>
+                                <p>{{post.author}}</p>
+
                                 {% if post.last_edited %}
                                 <p>Last Updated: {{ post.last_edited }}</p>
                                 {% endif %}
+
                             </span>
                         </div>
                     </div>
 
                 </article> <!-- end article -->
+                {% endif %}
                 {% endfor %}
             </div>
         </div>

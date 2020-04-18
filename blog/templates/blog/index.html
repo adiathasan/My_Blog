@@ -105,48 +105,55 @@ Adiat's Blog
 
                 <div class="grid-sizer"></div>
                 {% for post in posts %}
-                {% if post.pub_date %}
-                <article class="masonry__brick entry format-standard" data-aos="fade-up">
-                        {% if post.image %}
-                    <div class="entry__thumb">
-                        <a href="{% url 'blog' pk=post.pk %}" class="entry__thumb-link">
-                            <img src="{{ post.image.url }}"
-                                    srcset="{{ post.image.url }} 1x, {{ post.image.url }} 2x" alt="">
-                        </a>
-                    </div>
-                        {% endif %}
-    
-                    <div class="entry__text">
-                        <div class="entry__header">
-                            
-                            <div class="entry__date">
-                                <a href="#">{{post.pub_date}}</a>
+                    {% if post.pub_date %}
+                    <article class="masonry__brick entry format-standard" data-aos="fade-up">
+                            {% if post.image %}
+                                <div class="entry__thumb">
+                                    <a href="{% url 'blog' pk=post.pk %}" class="entry__thumb-link">
+                                        <img src="{{ post.image.url }}"
+                                                srcset="{{ post.image.url }} 1x, {{ post.image.url }} 2x" alt="">
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="entry__thumb">
+                                    <a href="{% url 'blog' pk=post.pk %}" class="entry__thumb-link">
+                                        <img src="{% static 'images/no_img.png' %}"
+                                                srcset="{% static 'images/no_img.png' %} 1x, {% static 'images/no_img.png' %} 2x" alt=""></a>
+                                </div>
+
+                            {% endif %}
+                        <div class="entry__text">
+                            <div class="entry__header">
+
+                                <div class="entry__date">
+                                    <a href="#">{{post.pub_date}}</a>
+                                </div>
+                                <h1 class="entry__title"><a href="{% url 'blog' pk=post.pk %}">{{ post.title }}</a></h1>
+
                             </div>
-                            <h1 class="entry__title"><a href="{% url 'blog' pk=post.pk %}">{{ post.title }}</a></h1>
-                            
+                            <div class="entry__excerpt">
+                                <p>
+                                  {{post.text}}
+                                </p>
+                            </div>
+                            <div class="entry__meta">
+                                <span class="entry__meta-links">
+                                    <a href="">Design</a>
+                                    <a href="">Photography</a>
+                                    {% if post.last_edited %}
+                                    <p>Last Updated: {{ post.last_edited }}</p>
+                                    {% endif %}
+                                    <p>Author: {{post.author}}</p>
+                                </span>
+                            </div>
                         </div>
-                        <div class="entry__excerpt">
-                            <p>
-                              {{post.text}}
-                            </p>
-                        </div>
-                        <div class="entry__meta">
-                            <span class="entry__meta-links">
-                                <a href="category.html">Design</a> 
-                                <a href="category.html">Photography</a>
-                                {% if post.last_edited %}
-                                <p>Last Updated: {{ post.last_edited }}</p>
-                                {% endif %}
-                            </span>
-                        </div>
-                    </div>
-                    {% if post.comments.count <= 1 %}
-                        <p>{{post.comments.count}} comment</p>
-                    {% else %}
-                        <p>{{post.comments.count}} comments</p>
+                        {% if post.comments.count <= 1 %}
+                            <p>{{post.comments.count}} comment</p>
+                        {% else %}
+                            <p>{{post.comments.count}} comments</p>
+                        {% endif %}
+                    </article> <!-- end article -->
                     {% endif %}
-                </article> <!-- end article -->
-                {% endif %}
                 {% endfor %}
 
 
@@ -156,7 +163,7 @@ Adiat's Blog
                         <blockquote>
                                 <p>Good design is making something intelligible and memorable. Great design is making something memorable and meaningful.</p>
 
-                                <cite>Dieter Rams</cite>
+                                <cite>Adiat Hasan</cite>
                         </blockquote>
                     </div>
 

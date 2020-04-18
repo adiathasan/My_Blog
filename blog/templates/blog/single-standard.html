@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}
 {{blog.title}}
+{{blog.title}}
 {% endblock %}
 {% block content %}
     <section class="s-content s-content--narrow s-content--no-padding-bottom">
@@ -16,14 +17,10 @@
                 <div class="row bottom tags-wrap">
                     <div class="col-full tags">
                         <div class="tagcloud">
-<<<<<<< HEAD
-                            <a href="{% url 'update' pk=blog.pk %}"><i class="fas fa-pen fa-2x fa-spin"></i></a>/
-                            {% if user.is_superuser %}
-                            <a href="{% url 'delete' pk=blog.pk %}"><i class="fas fa-trash-alt fa-2x fa-spin"></i></a>
+                            {% if user.is_superuser or request.user == blog.author %}
+                            <a href="{% url 'update' pk=blog.pk %}">Upda<i class="fas fa-pen fa-2x">e</i></a>/
+                            <a href="{% url 'delete' pk=blog.pk %}"><i class="fas fa-trash-alt fa-2x ">lete</i></a>
                             {% endif %}
-=======
-                            <a href="{% url 'update' pk=blog.pk %}"><i class="fas fa-pen fa-3x"></i></a>
->>>>>>> 949189bd0530dc0648a564d6ca4994ba2bbe18ec
                         </div>
                     </div>
                 </div>
@@ -40,14 +37,21 @@
                     </li>
                 </ul>
             </div> <!-- end s-content__header -->
-    
+            {% if blog.image %}
             <div class="s-content__media col-full">
                 <div class="s-content__post-thumb">
                     <img src="{{blog.image.url}}"
 
                 </div>
             </div> <!-- end s-content__media -->
+            {% else %}
+            <div class="s-content__media col-full">
+                <div class="s-content__post-thumb">
+                    <img src="{% static 'images/no_img.png' %}"
 
+                </div>
+            </div>
+            {% endif %}
             <div class="col-full s-content__main">
 
                 <p>{{ blog.text }}</p>
@@ -105,12 +109,15 @@
 
                                 <div class="comment__info">
                                     <cite>{{ comment.author }}</cite>
-                                    {% if user.is_authenticated %}
+
                                     <div class="comment__meta">
                                         <time class="comment__time">{{ comment.created_date }}</time>
+                                        {% if user.is_authenticated and request.user.username == comment.author %}
                                         <a class="reply" href="{% url 'remove' pk=comment.pk %}">remove</a>
+                                        {% endif %}
                                     </div>
-                                    {% endif %}
+
+
                                 </div>
 
                                 <div class="comment__text">
