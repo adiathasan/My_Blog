@@ -52,7 +52,7 @@ class Comment(models.Model):
 
 
 class User_Account(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.CharField(null=True, max_length=100)
     phone = models.IntegerField(null=True, editable=True)
     profile_pic = models.ImageField(blank=True, null=True)
